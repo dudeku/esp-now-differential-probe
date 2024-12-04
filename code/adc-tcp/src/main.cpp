@@ -310,7 +310,7 @@ void AdcSwipeCode(void *pvParameters)
 
 TaskHandle_t EthernetServerHandle;
 
-#define WDT_TIMEOUT 5
+//#define WDT_TIMEOUT 5
 
 void EthernetServerCode(void *pvParameters)
 {
@@ -395,7 +395,7 @@ void EthernetServerCode(void *pvParameters)
 
 void setup()
 {
-  esp_task_wdt_init(WDT_TIMEOUT, true);
+  //esp_task_wdt_init(WDT_TIMEOUT, true);
   esp_task_wdt_add(EthernetServerHandle);
   esp_task_wdt_add(AdcSwipeHandle);
   esp_task_wdt_add(NULL);
