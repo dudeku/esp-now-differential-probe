@@ -2,8 +2,11 @@
 #include <SPI.h>
 #include "LTC2449.h"
 #include <Ethernet.h>
-// #include <EthernetUdp.h>
 #include <esp_task_wdt.h>
+#include <esp_now.h>
+#include <WiFi.h>
+#include <esp_wifi.h>
+#include <ArduinoJSON.h>
 
 #define SPI2_MOSI 11
 #define SPI2_CS 10
@@ -61,6 +64,20 @@ float adc_voltage_swipe[16];
 float adc_voltage_corrected[16];
 
 SPIClass *spi3 = NULL;
+
+// ESP NOW structure
+typedef struct struct_message
+{
+  uint8_t mess_int;
+  float mess_float[16];
+} struct_message;
+
+struct_message mess_struct;
+
+JsonDocument board;
+
+int data_good = 0;
+int rssi_display;
 
 void beginSPI3()
 {
@@ -156,6 +173,20 @@ void adc_voltage_correction()
 
 bool adc_swipe_active_flag = 0;
 
+void adc_data_to_json()
+{
+  board["board"][0]["id"] = 0;
+  for (int i = 0; i < 16; i++)
+  {
+    String key = "CH" + String(i);
+    board["board"][0]["voltages"][key] = adc_voltage_corrected[i];
+  }
+
+#ifdef DEBUG
+  // serializeJsonPretty(board, Serial);
+#endif
+}
+
 void adc_swipe_channels()
 {
   adc_swipe_active_flag = 1;
@@ -180,7 +211,7 @@ void adc_swipe_channels()
 #ifdef DEBUG
   Serial.println(b - a);
 #endif
-
+  adc_data_to_json();
   adc_swipe_active_flag = 0;
 }
 
@@ -200,6 +231,67 @@ void adc_ch0_test()
   Serial.println(adc_voltage, 9);
 }
 
+void recv_data_print()
+{
+#ifdef DEBUG
+  Serial.print("Bytes received: ");
+  Serial.println(sizeof(mess_struct));
+  Serial.print("Char: ");
+  Serial.println(mess_struct.mess_int);
+  for (int i = 0; i < 16; i++)
+  {
+    Serial.print("CH");
+    Serial.print(i);
+    Serial.print(": ");
+    Serial.println(mess_struct.mess_float[i]);
+  }
+  Serial.print("RSSI: ");
+  Serial.println(rssi_display);
+  Serial.println();
+#endif
+  data_good = 0;
+}
+
+void promiscuous_rx_cb(void *buf, wifi_promiscuous_pkt_type_t type)
+{
+  // All espnow traffic uses action frames which are a subtype of the mgmnt frames so filter out everything else.
+  if (type != WIFI_PKT_MGMT)
+    return;
+
+  const wifi_promiscuous_pkt_t *ppkt = (wifi_promiscuous_pkt_t *)buf;
+  // const wifi_ieee80211_packet_t *ipkt = (wifi_ieee80211_packet_t *)ppkt->payload;
+  // const wifi_ieee80211_mac_hdr_t *hdr = &ipkt->hdr;
+
+  int rssi = ppkt->rx_ctrl.rssi;
+  rssi_display = rssi;
+}
+
+// callback function that will be executed when data is received
+void OnDataRecv(const uint8_t *mac_addr, const uint8_t *incomingData, int len)
+{
+  // Copies the sender mac address to a string
+  char macStr[18];
+  snprintf(macStr, sizeof(macStr), "%02x:%02x:%02x:%02x:%02x:%02x",
+           mac_addr[0], mac_addr[1], mac_addr[2], mac_addr[3], mac_addr[4], mac_addr[5]);
+  memcpy(&mess_struct, incomingData, sizeof(mess_struct));
+
+  /*// ESP NOW structure
+  typedef struct struct_message
+  {
+    uint8_t mess_int;
+    float mess_float[16];
+  } struct_message;
+
+  struct_message mess_struct;*/
+
+  board["board"][mess_struct.mess_int]["id"] = mess_struct.mess_int;
+  for (int i = 0; i < 16; i++)
+  {
+    String key = "CH" + String(i);
+    board["board"][mess_struct.mess_int]["voltages"][key] = mess_struct.mess_float[i];
+  }
+}
+
 uint32_t ip_addr32;
 
 TaskHandle_t AdcSwipeHandle;
@@ -212,10 +304,6 @@ void AdcSwipeCode(void *pvParameters)
     if (!adc_swipe_active_flag)
     {
       adc_swipe_channels();
-      // #ifdef DEBUG
-      //       Serial.print("Swipe from task on core: ");
-      //       Serial.println(xPortGetCoreID());
-      // #endif
     }
   }
 }
@@ -249,38 +337,40 @@ void EthernetServerCode(void *pvParameters)
           esp_task_wdt_reset();
           char c = client.read();
           Serial.write(c);
-          Serial.println(" ");
+          Serial.print(" ");
           if (c == '\n' && currentLineIsBlank)
           {
             // send a standard HTTP response header
             client.println("HTTP/1.1 200 OK");
             client.println("Content-Type: text/html");
             client.println("Connection: close"); // the connection will be closed after completion of the response
-            client.println("Refresh: 10");       // refresh the page automatically every 5 sec
+            client.println("Refresh: 15");       // refresh the page automatically every 5 sec
             client.println();
             client.println("<!DOCTYPE HTML>");
             client.println("<html>");
-            adc_swipe_channels();
-            for (int i = 0; i < 16; i++)
-            {
-              client.print("Channel ");
-              client.print(i + 1);
-              client.print(": ");
-              client.print(adc_voltage_swipe[i], 9);
-              client.println("<br />");
-            }
+            // adc_swipe_channels();
+            // for (int i = 0; i < 16; i++)
+            // {
+            //   client.print("Channel ");
+            //   client.print(i + 1);
+            //   client.print(": ");
+            //   client.print(adc_voltage_swipe[i], 9);
+            //   client.println("<br />");
+            // }
+            serializeJsonPretty(board, client);
             client.println("</html>");
             break;
           }
           if (c == '?')
           {
-            client.println("PROBE_1 data: ");
-            for (int i = 0; i < 16; i++)
-            {
-              client.print(i + 1);
-              client.print(": ");
-              client.println(adc_voltage_corrected[i], 6);
-            }
+            // client.println("PROBE_1 data: ");
+            // for (int i = 0; i < 16; i++)
+            // {
+            //   client.print(i + 1);
+            //   client.print(": ");
+            //   client.println(adc_voltage_corrected[i], 6);
+            // }
+            serializeJson(board, client);
           }
           if (c == '\n')
           {
@@ -380,6 +470,21 @@ void setup()
 
   xTaskCreatePinnedToCore(AdcSwipeCode, "AdcSwipeHandle", 10000, NULL, 1, &AdcSwipeHandle, 0);
   xTaskCreatePinnedToCore(EthernetServerCode, "EthernetServerHandle", 10000, NULL, 1, &EthernetServerHandle, 1);
+
+  // esp now init
+  WiFi.mode(WIFI_STA);
+
+  // Init ESP-NOW
+  if (esp_now_init() != ESP_OK)
+  {
+    Serial.println("Error initializing ESP-NOW");
+    return;
+  }
+
+  esp_now_register_recv_cb(esp_now_recv_cb_t(OnDataRecv));
+
+  esp_wifi_set_promiscuous(true);
+  esp_wifi_set_promiscuous_rx_cb(&promiscuous_rx_cb);
 }
 
 void loop()
@@ -387,11 +492,11 @@ void loop()
   esp_task_wdt_reset();
   Serial.print("Main loop on core: ");
   Serial.println(xPortGetCoreID());
-  Serial.println("Display readings: ");
-  for (int i = 0; i < 16; i++)
-  {
-    Serial.printf("CH%d: ", i);
-    Serial.println(adc_voltage_swipe[i] * 8, 6);
-  }
   delay(1000);
+  serializeJsonPretty(board, Serial);
+  delay(1000);
+  if (data_good == 1)
+  {
+    recv_data_print();
+  }
 }
