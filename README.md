@@ -33,3 +33,10 @@ spi3 problem, not setting pinMode MISO (6)
 [ ][E][esp32-hal-gpio.c:190] __digitalRead(): IO 6 is not set as GPIO.
 ```
 ### tool-esptoolpy @ 4.8.1
+
+## Possible fix for framework 3.x
+```
+digitalRead() in LTC2449 lib cannot access MISO pin to check if transmission has been completed.
+
+need to change LIC2449 library implementation for new version.
+```

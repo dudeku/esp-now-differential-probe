@@ -82,6 +82,7 @@ int rssi_display;
 void beginSPI3()
 {
   spi3 = new SPIClass(HSPI);
+  // todo: set miso as spi_miso_bus_fun
   spi3->begin(SPI3_CLK, SPI3_MISO, SPI3_MOSI, SPI3_CS);
   pinMode(spi3->pinSS(), OUTPUT); // HSPI SS
   // pinMode(SPI3_MISO, INPUT); // arduino framework problem 3.x not setting MISO pinmode when communicating with adc
