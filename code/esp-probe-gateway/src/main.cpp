@@ -84,6 +84,7 @@ void beginSPI3()
   spi3 = new SPIClass(HSPI);
   spi3->begin(SPI3_CLK, SPI3_MISO, SPI3_MOSI, SPI3_CS);
   pinMode(spi3->pinSS(), OUTPUT); // HSPI SS
+  // pinMode(SPI3_MISO, INPUT); // arduino framework problem 3.x not setting MISO pinmode when communicating with adc
 }
 
 void adc_command_prep()
@@ -209,6 +210,7 @@ void adc_swipe_channels()
   b = millis();
   adc_voltage_correction();
 #ifdef DEBUG
+  Serial.print("Swipe time: ");
   Serial.println(b - a);
 #endif
   adc_data_to_json();
@@ -300,25 +302,26 @@ void AdcSwipeCode(void *pvParameters)
 {
   for (;;)
   {
-    esp_task_wdt_reset();
+    // esp_task_wdt_reset();
     if (!adc_swipe_active_flag)
     {
       adc_swipe_channels();
     }
+    delay(10);
   }
 }
 
 TaskHandle_t EthernetServerHandle;
 
-//#define WDT_TIMEOUT 5
+#define WDT_TIMEOUT 5
 
 void EthernetServerCode(void *pvParameters)
 {
   for (;;)
   {
-    esp_task_wdt_reset();
-    // Serial.print("Ethsrvr from task on core: ");
-    // Serial.println(xPortGetCoreID());
+    // esp_task_wdt_reset();
+    //  Serial.print("Ethsrvr from task on core: ");
+    //  Serial.println(xPortGetCoreID());
     char incbuff[BUFSIZ];
     int index = 0;
     // listen for incoming clients
@@ -395,7 +398,7 @@ void EthernetServerCode(void *pvParameters)
 
 void setup()
 {
-  //esp_task_wdt_init(WDT_TIMEOUT, true);
+  esp_task_wdt_init(WDT_TIMEOUT, true);
   esp_task_wdt_add(EthernetServerHandle);
   esp_task_wdt_add(AdcSwipeHandle);
   esp_task_wdt_add(NULL);
@@ -490,13 +493,15 @@ void setup()
 void loop()
 {
   esp_task_wdt_reset();
+#ifdef DEBUG
   Serial.print("Main loop on core: ");
   Serial.println(xPortGetCoreID());
-  delay(1000);
+#endif
+  delay(2000);
   serializeJsonPretty(board, Serial);
-  delay(1000);
-  if (data_good == 1)
-  {
-    recv_data_print();
-  }
+  delay(2000);
+  // if (data_good == 1)
+  // {
+  //   recv_data_print();
+  // }
 }

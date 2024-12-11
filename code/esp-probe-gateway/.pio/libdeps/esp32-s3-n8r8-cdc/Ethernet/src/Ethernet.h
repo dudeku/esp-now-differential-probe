@@ -251,7 +251,7 @@ private:
 };
 
 
-class EthernetServer : public Server {
+class EthernetServer : public Print {
 private:
 	uint16_t _port;
 public:
