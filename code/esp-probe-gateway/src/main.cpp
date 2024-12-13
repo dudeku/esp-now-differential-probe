@@ -27,7 +27,7 @@
 #define VSPI FSPI
 #endif
 
-#define DEBUG
+// #define DEBUG
 
 // fspi = spi2 = SPI = w5500
 // hspi = spi3 = ltc2448
@@ -55,13 +55,30 @@ EthernetServer server(ETH_PORT);
 uint16_t adc_command = 0;
 float adc_voltage = 0;
 uint32_t adc_code = 0;
-float LTC2449_lsb = 0.000001;
+float LTC2449_lsb = 0.0001;
 int32_t LTC2449_offset_code = 0;
 int iteration = 0;
 uint16_t adc_command_swipe[16];
 uint32_t adc_code_swipe[16];
 float adc_voltage_swipe[16];
 float adc_voltage_corrected[16];
+float adc_corr_value_per_channel[16] = {
+    8.5409912,
+    8.52350766,
+    8.521256932,
+    8.557979182,
+    8.513388735,
+    8.509460083,
+    8.500493908,
+    8.520694435,
+    8.529703297,
+    8.501053741,
+    8.53929611,
+    8.526322743,
+    8.503854009,
+    8.521819502,
+    8.542121633,
+    8.486522025};
 
 SPIClass *spi3 = NULL;
 
@@ -170,7 +187,7 @@ void adc_command_change(int new_osr) // not working right now
 void adc_voltage_correction()
 {
   for (int i = 0; i <= 15; i++)
-    adc_voltage_corrected[i] = adc_voltage_swipe[i] * 8;
+    adc_voltage_corrected[i] = adc_voltage_swipe[i] * adc_corr_value_per_channel[i];
 }
 
 bool adc_swipe_active_flag = 0;
@@ -303,7 +320,7 @@ void AdcSwipeCode(void *pvParameters)
 {
   for (;;)
   {
-    // esp_task_wdt_reset();
+    esp_task_wdt_reset();
     if (!adc_swipe_active_flag)
     {
       adc_swipe_channels();
@@ -320,7 +337,7 @@ void EthernetServerCode(void *pvParameters)
 {
   for (;;)
   {
-    // esp_task_wdt_reset();
+    esp_task_wdt_reset();
     //  Serial.print("Ethsrvr from task on core: ");
     //  Serial.println(xPortGetCoreID());
     char incbuff[BUFSIZ];
@@ -361,7 +378,7 @@ void EthernetServerCode(void *pvParameters)
             //   client.print(adc_voltage_swipe[i], 9);
             //   client.println("<br />");
             // }
-            serializeJsonPretty(board, client);
+            serializeJson(board, client);
             client.println("</html>");
             break;
           }
@@ -414,10 +431,6 @@ void setup()
   ip = ip_addr32;
   // Open serial communications and wait for port to open:
   Serial.begin(115200);
-  // while (!Serial)
-  // {
-  //   ; // wait for serial port to connect. Needed for native USB port only
-  // }
 
   beginSPI3();
 
@@ -428,6 +441,7 @@ void setup()
   // LTC2449_cal_voltage(0x55CC00, 0x1853177, 0, 1.5, &LTC2449_lsb, &LTC2449_offset_code);
   // LTC2449_cal_voltage(0x200D6400, 0x30000000, 0, 1.25, &LTC2449_lsb, &LTC2449_offset_code);
   LTC2449_cal_voltage(0x200D0000, 0x30000000, 0, 2.048, &LTC2449_lsb, &LTC2449_offset_code);
+
   adc_command_prep();
 
   // osr set
