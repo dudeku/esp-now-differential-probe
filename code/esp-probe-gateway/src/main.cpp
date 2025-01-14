@@ -87,6 +87,7 @@ typedef struct struct_message
 {
   uint8_t mess_int;
   float mess_float[16];
+  uint32_t mess_time;
 } struct_message;
 
 struct_message mess_struct;
@@ -126,7 +127,8 @@ void adc_command_prep()
 
   for (int i = 0; i < 15; i++)
   {
-    adc_command_swipe[i] = adc_command_swipe[i] | LTC2449_OSR_8192 | LTC2449_SPEED_1X;
+    // adc_command_swipe[i] = adc_command_swipe[i] | LTC2449_OSR_8192 | LTC2449_SPEED_1X;
+    adc_command_swipe[i] = adc_command_swipe[i] | LTC2449_OSR_256 | LTC2449_SPEED_1X;
   }
 }
 
@@ -200,6 +202,7 @@ void adc_data_to_json()
     String key = "CH" + String(i);
     board["board"][0]["voltages"][key] = adc_voltage_corrected[i];
   }
+  board["board"][0]["time"] = millis();
 
 #ifdef DEBUG
   // serializeJsonPretty(board, Serial);
@@ -265,6 +268,8 @@ void recv_data_print()
     Serial.print(": ");
     Serial.println(mess_struct.mess_float[i]);
   }
+  Serial.print("Time: ");
+  Serial.println(mess_struct.mess_time);
   Serial.print("RSSI: ");
   Serial.println(rssi_display);
   Serial.println();
@@ -286,6 +291,7 @@ void promiscuous_rx_cb(void *buf, wifi_promiscuous_pkt_type_t type)
   rssi_display = rssi;
 }
 
+uint32_t old_mess_time = 0;
 // callback function that will be executed when data is received
 void OnDataRecv(const uint8_t *mac_addr, const uint8_t *incomingData, int len)
 {
@@ -300,6 +306,7 @@ void OnDataRecv(const uint8_t *mac_addr, const uint8_t *incomingData, int len)
   {
     uint8_t mess_int;
     float mess_float[16];
+    uint32_t mess_time;
   } struct_message;
 
   struct_message mess_struct;*/
@@ -310,6 +317,7 @@ void OnDataRecv(const uint8_t *mac_addr, const uint8_t *incomingData, int len)
     String key = "CH" + String(i);
     board["board"][mess_struct.mess_int]["voltages"][key] = mess_struct.mess_float[i];
   }
+  board["board"][mess_struct.mess_time]["time"] = mess_struct.mess_time;
 }
 
 uint32_t ip_addr32;
@@ -424,8 +432,8 @@ void setup()
 
   ip_addr1 = 192;
   ip_addr2 = 168;
-  ip_addr3 = 1;
-  ip_addr4 = 177;
+  ip_addr3 = 137;
+  ip_addr4 = 50;
   ip_addr32 = (ip_addr4 << 24) + (ip_addr3 << 16) + (ip_addr2 << 8) + ip_addr1;
 
   ip = ip_addr32;
