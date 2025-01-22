@@ -1,83 +1,53 @@
-#import serial
 import time
-import socket
-#import sys
 import json
+import os
+import socket
 
-#import pandas as pd
+current_date = time.strftime('%d_%m_%Y')
+filename = f'espsonda_{current_date}.json'
 
-epochtime = int(time.time())
+#filename = 'new_json_test.json'
 
+# Check if the file already exists
+if os.path.exists(filename) and os.path.getsize(filename) > 0 :
+    # If the file exists, load its content
+    with open(filename, 'r') as file:
+        json_data = json.load(file)
+else:
+    # If the file doesn't exist, initialize the JSON structure
+    json_data = {'epochtime': [], 'board': []}
+
+#connect to espsonda
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-#server_address = ('192.168.1.177', 2048)
 server_address = ('192.168.137.50', 2048)
 print('connecting to %s port %s' % server_address)
 sock.connect(server_address)
 
-#f = open('outputETH.txt','a')
-#f = open('outputETHjson.json', 'a')
-#f.write('{')
-filename='new_out_eth.json'
-
-with open(filename) as json_file:
-    json_file = json.load(json_file)
-
-    json_file['time'] = []
-    json_file['board'] = []
-
-
+# Append new data multiple times
+for x in range(36000):
+    # Append the current epoch time
     epochtime = int(time.time())
-    #f.write('"time": ' + str(epochtime) + ',\n')
-    #data_time = str(epochtime)
-    time_json = json.loads(str(epochtime))
-    json_file['time'] = [time_json]
+    json_data['epochtime'].append(epochtime)
 
-    #
     message = '?'
     sock.sendall(message.encode(encoding='utf-8'))
 
-    time.sleep(1)
-    data = sock.recv(512)
-    data = data.decode('utf-8')
-    data = data[9:]
-    data = data[:-1]
-    print(data)
-    received = json.loads(data)
-    json_file['board'] = [received]
+    time.sleep(0.1)
+    data = sock.recv(512).decode('utf-8')
+    
+    try:
+        # Parse the received data as JSON
+        received = json.loads(data)
+        if "board" in received:
+            json_data['board'].append(received["board"])
+        else:
+            print("Invalid data format: 'board' key not found.")
+    except json.JSONDecodeError:
+        print("Error decoding JSON from received data.")
+    print("New data received.")
 
-with open(filename, 'w') as filename:
-    json.dump(json_file, filename)
+# Write the updated JSON data back to the file
+with open(filename, 'w') as file:
+    json.dump(json_data, file, indent=4)
 
-filename='new_out_eth.json'
-
-with open(filename) as json_file:
-    json_file = json.load(json_file)
-
-for x in range (50):
-#while True:
-    epochtime = int(time.time())
-    #f.write('"time": ' + str(epochtime) + ',\n')
-    #data_time = str(epochtime)
-    time_json = json.loads(str(epochtime))
-    json_file['time'].append(time_json)
-
-    #
-    message = '?'
-    sock.sendall(message.encode(encoding='utf-8'))
-
-    time.sleep(1)
-    data = sock.recv(512)
-    data = data.decode('utf-8')
-    data = data[9:]
-    data = data[:-1]
-    print(data)
-    received = json.loads(data)
-    json_file['board'].append(received)
-    #f.write(str(data) + ',\n')
-
-print('closing socket')
-sock.close()
-
-with open(filename, 'w') as filename:
-    json.dump(json_file, filename)
-#print ("Received: {}".format(received))
+print("Data updated succesfully.")
