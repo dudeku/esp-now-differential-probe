@@ -3,13 +3,14 @@ import matplotlib.pyplot  as plt
 import json
 #import numpy as np
 from scipy.signal import savgol_filter
-#import sg_filter
 
-with open('espsonda_22_01_2025.json') as json_file:
+filename = 'espsonda_08-50-03_04-03-2025'
+
+with open(f'measurements\\{filename}.json') as json_file:
     json_decoded = json.load(json_file)
 
-# with open('espsonda_22_01_2025_10min.json') as json_file:
-#     json_decoded = json.load(json_file)
+# with open('espsonda_09-42-16_29-01-2025.json') as json_file_2:
+#     json_decoded_2 = json.load(json_file_2)
 
 # Assuming json_decoded["board"] contains all channel data
 channels = [f"CH{i}" for i in range(16)]  # List of channels CH0 to CH15
@@ -21,34 +22,52 @@ channel_values = {channel: [entry[0]["voltages"].get(channel, None) for entry in
 # Creating the DataFrame
 df = pd.DataFrame({
     "epochtime": json_decoded["epochtime"],
-    **channel_values
+    **channel_values,
+    "current": json_decoded["current"]
 })
 
 # Convert epochtime to datetime
 df['epochtime'] = pd.to_datetime(df['epochtime'], unit='s')
 
+#df = df.truncate(after = 2400)
+#df = df.truncate(before = 1000)
+
 # Print the DataFrame
 print(df)
 
 # Plotting all channels
-plt.figure(figsize=(20, 20))  # Adjust the figure size for better visibility
+fig = plt.figure(figsize=(20, 20))  # Adjust the figure size for better visibility
 
 for i, channel in enumerate(channels):
-    plt.subplot(4, 4, i + 1)  # 4x4 grid for 16 subplots
-    plt.plot(df["epochtime"], df[channel], label=f"{channel} vs Time")
-    plt.title(channel)
-    plt.xlabel("Time")
-    plt.ylabel("Voltage")
-    plt.legend(loc=2)
-    plt.tight_layout()
+    ax1 = plt.subplot(4, 4, i + 1)  # 4x4 grid for 16 subplots
+    ax1.plot(df["epochtime"], df[channel], label=f"{channel} vs Time")
+    ax1.set_ylabel("Voltage")
 
+    ax2 = ax1.twinx()
+    ax2.plot(df["epochtime"], df["current"], color='r', label=f"Current vs Time")
+    ax2.set_ylabel("Current")
+
+    ax1.set_title(channel)
+    ax1.set_xlabel("Time")
+    ax1.tick_params(axis='x', rotation=90)
+
+    lines, labels = ax1.get_legend_handles_labels()
+    lines2, labels2 = ax2.get_legend_handles_labels()
+    ax1.legend(lines + lines2, labels + labels2, loc='upper left')
+
+    #plt.legend()
+    
+    ax1.grid()
+    plt.tight_layout()
+plt.savefig(f'graphs\\{filename}_1.png')
 plt.show()
+
 
 # Apply Savitzky-Golay filter to smooth the data
 smoothed_data = {}
 for channel in channels:
-    signal = df[channel].dropna()  # Remove NaN values
-    smoothed_signal = savgol_filter(signal, 401, 3)  # Window size 101, polynomial order 3
+    signal = df[channel]#.dropna()  # Remove NaN values
+    smoothed_signal = savgol_filter(signal, 101, 3)  # Window size 101, polynomial order 3
     smoothed_data[channel] = smoothed_signal
 
 # Add smoothed data to DataFrame
@@ -63,10 +82,14 @@ for i, channel in enumerate(channels):
     plt.plot(df["epochtime"], df[f"{channel}_smoothed"], color='r', label=f"{channel} (Smoothed)")
     plt.title(channel)
     plt.xlabel("Time")
+    plt.xticks(rotation=45)
     plt.ylabel("Voltage")
-    plt.legend()
+    plt.legend(loc=2)
+    plt.grid()
     plt.tight_layout()
+plt.savefig(f'graphs\\{filename}_2.png')
 plt.show()
+
 
 # Sampling frequency (Hz) - adjust this based on your data
 # fs = 10  # Example: 10 samples per second
