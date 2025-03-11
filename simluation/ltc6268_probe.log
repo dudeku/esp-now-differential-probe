@@ -1,0 +1,68 @@
+Circuit: * C:\Users\Klaudiusz.Dudek\Documents\Git Projects\esp-now-differential-probe\simluation\ltc6268_probe.asc
+
+Instance "m:u3:3": Length shorter than recommended for a level 1 MOSFET.
+Instance "m:u3:4": Length shorter than recommended for a level 1 MOSFET.
+Direct Newton iteration failed to find .op point.  (Use ".option noopiter" to skip.)
+Starting Gmin stepping
+Gmin = 10
+Gmin = 1.07374
+vernier = 0.5
+vernier = 0.25
+vernier = 0.125
+vernier = 0.0625
+Gmin = 1.10559
+vernier = 0.03125
+vernier = 0.015625
+Gmin = 1.05931
+vernier = 0.0078125
+vernier = 0.0104167
+vernier = 0.00520833
+Gmin = 1.04494
+vernier = 0.00694444
+vernier = 0.00347222
+Gmin = 1.03547
+vernier = 0.00462963
+vernier = 0.00231481
+vernier = 0.00308642
+Gmin = 1.02989
+vernier = 0.00154321
+vernier = 0.000771604
+vernier = 0.00102881
+Gmin = 1.02903
+vernier = 0.000514403
+Gmin = 0
+Gmin stepping failed
+
+Starting source stepping with srcstepmethod=0
+Source Step = 3.0303%
+Source Step = 28.0303%
+Source Step = 35.6061%
+Source Step = 43.1818%
+Source Step = 50.7576%
+Source Step = 58.3333%
+Source Step = 65.9091%
+vernier = 0.375
+Source Step = 77.2727%
+Source Step = 88.6364%
+Source Step = 100%
+Source stepping succeeded in finding the operating point.
+
+
+Date: Tue Mar 11 13:49:37 2025
+Total elapsed time: 1.120 seconds.
+
+tnom = 27
+temp = 27
+method = trap
+totiter = 5641
+traniter = 0
+tranpoints = 0
+accept = 0
+rejected = 0
+matrix size = 154
+fillins = 499
+solver = Normal
+Avg thread counts: 1.2/0.0/3.8/1.2
+Matrix Compiler1:    1977 opcodes  7.7/4.2/[1.0]
+Matrix Compiler2: 22.31 KB object code size  4.4/4.6/[0.9]
+
