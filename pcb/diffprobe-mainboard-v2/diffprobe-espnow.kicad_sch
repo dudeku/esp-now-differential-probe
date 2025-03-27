@@ -1,13 +1,15 @@
 (kicad_sch
-	(version 20231120)
+	(version 20250114)
 	(generator "eeschema")
-	(generator_version "8.0")
+	(generator_version "9.0")
 	(uuid "653c0442-d403-4359-a572-c3a39bb601da")
 	(paper "A3")
 	(lib_symbols
 		(symbol "Connector:Conn_01x04_Socket"
 			(pin_names
-				(offset 1.016) hide)
+				(offset 1.016)
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -81,45 +83,9 @@
 				)
 			)
 			(symbol "Conn_01x04_Socket_1_1"
-				(arc
-					(start 0 -4.572)
-					(mid -0.5058 -5.08)
-					(end 0 -5.588)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(arc
-					(start 0 -2.032)
-					(mid -0.5058 -2.54)
-					(end 0 -3.048)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
 				(polyline
 					(pts
-						(xy -1.27 -5.08) (xy -0.508 -5.08)
-					)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -1.27 -2.54) (xy -0.508 -2.54)
+						(xy -1.27 2.54) (xy -0.508 2.54)
 					)
 					(stroke
 						(width 0.1524)
@@ -143,7 +109,19 @@
 				)
 				(polyline
 					(pts
-						(xy -1.27 2.54) (xy -0.508 2.54)
+						(xy -1.27 -2.54) (xy -0.508 -2.54)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 -5.08) (xy -0.508 -5.08)
 					)
 					(stroke
 						(width 0.1524)
@@ -154,21 +132,45 @@
 					)
 				)
 				(arc
-					(start 0 0.508)
-					(mid -0.5058 0)
-					(end 0 -0.508)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(arc
-					(start 0 3.048)
+					(start 0 2.032)
 					(mid -0.5058 2.54)
-					(end 0 2.032)
+					(end 0 3.048)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 -0.508)
+					(mid -0.5058 0)
+					(end 0 0.508)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 -3.048)
+					(mid -0.5058 -2.54)
+					(end 0 -2.032)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 -5.588)
+					(mid -0.5058 -5.08)
+					(end 0 -4.572)
 					(stroke
 						(width 0.1524)
 						(type default)
@@ -250,10 +252,13 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "Connector:Screw_Terminal_01x02"
 			(pin_names
-				(offset 1.016) hide)
+				(offset 1.016)
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -330,9 +335,10 @@
 						(type background)
 					)
 				)
-				(circle
-					(center 0 -2.54)
-					(radius 0.635)
+				(polyline
+					(pts
+						(xy -0.5334 0.3302) (xy 0.3302 -0.508)
+					)
 					(stroke
 						(width 0.1524)
 						(type default)
@@ -355,7 +361,7 @@
 				)
 				(polyline
 					(pts
-						(xy -0.5334 0.3302) (xy 0.3302 -0.508)
+						(xy -0.3556 0.508) (xy 0.508 -0.3302)
 					)
 					(stroke
 						(width 0.1524)
@@ -377,10 +383,9 @@
 						(type none)
 					)
 				)
-				(polyline
-					(pts
-						(xy -0.3556 0.508) (xy 0.508 -0.3302)
-					)
+				(circle
+					(center 0 0)
+					(radius 0.635)
 					(stroke
 						(width 0.1524)
 						(type default)
@@ -390,7 +395,7 @@
 					)
 				)
 				(circle
-					(center 0 0)
+					(center 0 -2.54)
 					(radius 0.635)
 					(stroke
 						(width 0.1524)
@@ -437,6 +442,7 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "DifferentialProbe-altium-import:GND"
 			(power)
@@ -558,7 +564,8 @@
 				)
 				(pin power_in line
 					(at 0 0 0)
-					(length 0) hide
+					(length 0)
+					(hide yes)
 					(name "GND"
 						(effects
 							(font
@@ -575,6 +582,90 @@
 					)
 				)
 			)
+			(embedded_fonts no)
+		)
+		(symbol "Mechanical:MountingHole"
+			(pin_names
+				(offset 1.016)
+			)
+			(exclude_from_sim yes)
+			(in_bom no)
+			(on_board yes)
+			(property "Reference" "H"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "MountingHole"
+				(at 0 3.175 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Mounting Hole without connection"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "mounting hole"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "MountingHole*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "MountingHole_0_1"
+				(circle
+					(center 0 0)
+					(radius 1.27)
+					(stroke
+						(width 1.27)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(embedded_fonts no)
 		)
 	)
 	(junction
@@ -4384,6 +4475,134 @@
 		)
 	)
 	(symbol
+		(lib_id "Mechanical:MountingHole")
+		(at 292.1 74.93 0)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "280e62f8-d701-40fa-8492-a55020f008fe")
+		(property "Reference" "H204"
+			(at 294.64 73.6599 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole"
+			(at 294.64 76.1999 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_Pad"
+			(at 292.1 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 292.1 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Mounting Hole without connection"
+			(at 292.1 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project "diffprobe-espnow"
+				(path "/653c0442-d403-4359-a572-c3a39bb601da"
+					(reference "H204")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Mechanical:MountingHole")
+		(at 292.1 55.88 0)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "298919f5-30cf-4d0a-930d-8f1e3744e5dc")
+		(property "Reference" "H201"
+			(at 294.64 54.6099 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole"
+			(at 294.64 57.1499 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_Pad"
+			(at 292.1 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 292.1 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Mounting Hole without connection"
+			(at 292.1 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project ""
+				(path "/653c0442-d403-4359-a572-c3a39bb601da"
+					(reference "H201")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Connector:Conn_01x04_Socket")
 		(at 186.69 66.04 0)
 		(mirror y)
@@ -5333,6 +5552,70 @@
 		)
 	)
 	(symbol
+		(lib_id "Mechanical:MountingHole")
+		(at 292.1 68.58 0)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "68b4e215-8384-4b96-a734-fe6ed5290a97")
+		(property "Reference" "H203"
+			(at 294.64 67.3099 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole"
+			(at 294.64 69.8499 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_Pad"
+			(at 292.1 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 292.1 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Mounting Hole without connection"
+			(at 292.1 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project "diffprobe-espnow"
+				(path "/653c0442-d403-4359-a572-c3a39bb601da"
+					(reference "H203")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Connector:Conn_01x04_Socket")
 		(at 168.91 144.78 0)
 		(mirror y)
@@ -5555,6 +5838,70 @@
 			(project "diffprobe-espnow"
 				(path "/653c0442-d403-4359-a572-c3a39bb601da"
 					(reference "J107")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Mechanical:MountingHole")
+		(at 292.1 62.23 0)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "75668c09-5a77-4397-a2cc-98c70cd060af")
+		(property "Reference" "H202"
+			(at 294.64 60.9599 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole"
+			(at 294.64 63.4999 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_Pad"
+			(at 292.1 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 292.1 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Mounting Hole without connection"
+			(at 292.1 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project "diffprobe-espnow"
+				(path "/653c0442-d403-4359-a572-c3a39bb601da"
+					(reference "H202")
 					(unit 1)
 				)
 			)
@@ -7842,6 +8189,10 @@
 	(sheet
 		(at 237.49 105.41)
 		(size 44.45 26.67)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
 		(fields_autoplaced yes)
 		(stroke
 			(width 0.1524)
@@ -7871,173 +8222,173 @@
 		)
 		(pin "CH15" input
 			(at 237.49 129.54 180)
+			(uuid "acf899b4-0355-4254-aacc-84a4ff47f67d")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "acf899b4-0355-4254-aacc-84a4ff47f67d")
 		)
 		(pin "CH13" input
 			(at 237.49 124.46 180)
+			(uuid "cb3b5720-ac29-44bd-a1d2-8604087e467e")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "cb3b5720-ac29-44bd-a1d2-8604087e467e")
 		)
 		(pin "CH12" input
 			(at 237.49 121.92 180)
+			(uuid "09113dc6-f952-4a26-8404-32ebc002b94d")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "09113dc6-f952-4a26-8404-32ebc002b94d")
 		)
 		(pin "CH14" input
 			(at 237.49 127 180)
+			(uuid "bff4d22a-4082-4c65-af96-27e89d7efc0d")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "bff4d22a-4082-4c65-af96-27e89d7efc0d")
 		)
 		(pin "CH8" input
 			(at 237.49 111.76 180)
+			(uuid "7287abcd-a110-411c-aa51-f2b9a53581ee")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "7287abcd-a110-411c-aa51-f2b9a53581ee")
 		)
 		(pin "CH11" input
 			(at 237.49 119.38 180)
+			(uuid "d0dd2fd4-d7a6-44c6-9f3f-eb872960ec06")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "d0dd2fd4-d7a6-44c6-9f3f-eb872960ec06")
 		)
 		(pin "CH10" input
 			(at 237.49 116.84 180)
+			(uuid "47214915-6871-4e0b-a24f-ac530dde3a2c")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "47214915-6871-4e0b-a24f-ac530dde3a2c")
 		)
 		(pin "CH9" input
 			(at 237.49 114.3 180)
+			(uuid "447cb78d-0176-4364-a192-53a9c765bcd0")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "447cb78d-0176-4364-a192-53a9c765bcd0")
 		)
 		(pin "CH1" input
 			(at 262.89 105.41 90)
+			(uuid "ffad0e57-0e1b-475b-82ee-498b1e2fd5e2")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "ffad0e57-0e1b-475b-82ee-498b1e2fd5e2")
 		)
 		(pin "CH3" input
 			(at 257.81 105.41 90)
+			(uuid "79f9f883-ab8e-4b44-a77c-5fd5e7b40a35")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "79f9f883-ab8e-4b44-a77c-5fd5e7b40a35")
 		)
 		(pin "CH5" input
 			(at 252.73 105.41 90)
+			(uuid "9b3f623f-fc0d-4fa6-a727-2708c5d8d1ef")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "9b3f623f-fc0d-4fa6-a727-2708c5d8d1ef")
 		)
 		(pin "CH0" input
 			(at 265.43 105.41 90)
+			(uuid "bc6f142c-6322-4a80-962b-46913a2c80b0")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "bc6f142c-6322-4a80-962b-46913a2c80b0")
 		)
 		(pin "CH7" input
 			(at 247.65 105.41 90)
+			(uuid "c0f5d6bb-0bb0-4865-8f4e-25cb6acb47f6")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "c0f5d6bb-0bb0-4865-8f4e-25cb6acb47f6")
 		)
 		(pin "CH4" input
 			(at 255.27 105.41 90)
+			(uuid "def091ac-701b-444f-835a-0202650ad86a")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "def091ac-701b-444f-835a-0202650ad86a")
 		)
 		(pin "CH2" input
 			(at 260.35 105.41 90)
+			(uuid "c84f53ad-9328-4432-852e-dc92d77310af")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "c84f53ad-9328-4432-852e-dc92d77310af")
 		)
 		(pin "CH6" input
 			(at 250.19 105.41 90)
+			(uuid "825440fc-2f69-4264-889e-9e439b228b68")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "825440fc-2f69-4264-889e-9e439b228b68")
 		)
 		(pin "PS5V" input
 			(at 281.94 108.585 0)
+			(uuid "cd3d8a99-899a-4c8d-ab5c-0d39be2d1520")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "cd3d8a99-899a-4c8d-ab5c-0d39be2d1520")
 		)
 		(instances
 			(project "diffprobe-espnow"
@@ -8050,6 +8401,10 @@
 	(sheet
 		(at 325.12 93.98)
 		(size 38.1 36.83)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
 		(fields_autoplaced yes)
 		(stroke
 			(width 0.1524)
@@ -8079,23 +8434,23 @@
 		)
 		(pin "PS-5V" output
 			(at 325.12 112.395 180)
+			(uuid "4bc0598e-301f-4250-98c0-8ccae6dfb96c")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "4bc0598e-301f-4250-98c0-8ccae6dfb96c")
 		)
 		(pin "PS5V" output
 			(at 325.12 106.68 180)
+			(uuid "2e316b5a-d609-40fe-848f-81e3b0921aae")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "2e316b5a-d609-40fe-848f-81e3b0921aae")
 		)
 		(instances
 			(project "diffprobe-espnow"
@@ -8108,6 +8463,10 @@
 	(sheet
 		(at 77.47 44.45)
 		(size 29.21 45.72)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
 		(fields_autoplaced yes)
 		(stroke
 			(width 0.1524)
@@ -8137,323 +8496,323 @@
 		)
 		(pin "IN_N_5" input
 			(at 77.47 71.12 180)
+			(uuid "b70633b2-6efa-4bfc-a6b4-a841d0a5ca29")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "b70633b2-6efa-4bfc-a6b4-a841d0a5ca29")
 		)
 		(pin "IN_P_LV_1" output
 			(at 106.68 48.26 0)
+			(uuid "e19a84d3-44d8-4bba-8a8e-8fe168fadd9a")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "e19a84d3-44d8-4bba-8a8e-8fe168fadd9a")
 		)
 		(pin "IN_N_LV_1" output
 			(at 106.68 50.8 0)
+			(uuid "3a8dd7bc-21d2-451a-a3b3-8c9c02251bbb")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "3a8dd7bc-21d2-451a-a3b3-8c9c02251bbb")
 		)
 		(pin "IN_N_6" input
 			(at 77.47 76.2 180)
+			(uuid "441fa2ad-8aee-459c-b693-f6f498622e3f")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "441fa2ad-8aee-459c-b693-f6f498622e3f")
 		)
 		(pin "IN_P_5" input
 			(at 77.47 68.58 180)
+			(uuid "1ad0620f-7bd4-4349-bf13-c50b8f08a02d")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "1ad0620f-7bd4-4349-bf13-c50b8f08a02d")
 		)
 		(pin "IN_P_6" input
 			(at 77.47 73.66 180)
+			(uuid "833bb23d-717e-4b82-a203-a726128cbacb")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "833bb23d-717e-4b82-a203-a726128cbacb")
 		)
 		(pin "IN_P_LV_2" output
 			(at 106.68 53.34 0)
+			(uuid "02bff328-c730-42b6-8b4d-cb2a39c4f984")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "02bff328-c730-42b6-8b4d-cb2a39c4f984")
 		)
 		(pin "IN_N_LV_2" output
 			(at 106.68 55.88 0)
+			(uuid "1515c139-dd27-46a4-9c24-c1760c18fb8c")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "1515c139-dd27-46a4-9c24-c1760c18fb8c")
 		)
 		(pin "IN_P_LV_3" output
 			(at 106.68 58.42 0)
+			(uuid "f893ef32-7aa2-42a1-a9a5-6ed4e61cd4ed")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "f893ef32-7aa2-42a1-a9a5-6ed4e61cd4ed")
 		)
 		(pin "IN_P_2" input
 			(at 77.47 53.34 180)
+			(uuid "969099d8-d13b-4ea0-872b-a46ce9cbcf33")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "969099d8-d13b-4ea0-872b-a46ce9cbcf33")
 		)
 		(pin "IN_N_1" input
 			(at 77.47 50.8 180)
+			(uuid "b918f444-85cd-4e8c-8172-e55838750dba")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "b918f444-85cd-4e8c-8172-e55838750dba")
 		)
 		(pin "IN_N_2" input
 			(at 77.47 55.88 180)
+			(uuid "da2d8607-5246-4efb-8771-f7edc9243b70")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "da2d8607-5246-4efb-8771-f7edc9243b70")
 		)
 		(pin "IN_P_1" input
 			(at 77.47 48.26 180)
+			(uuid "0524066a-fe5e-4c91-ba59-cf4f84fc7965")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "0524066a-fe5e-4c91-ba59-cf4f84fc7965")
 		)
 		(pin "IN_P_3" input
 			(at 77.47 58.42 180)
+			(uuid "6e293522-4902-41d7-bf17-1fbc99300681")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "6e293522-4902-41d7-bf17-1fbc99300681")
 		)
 		(pin "IN_P_7" input
 			(at 77.47 78.74 180)
+			(uuid "9b682085-2b3a-44e9-8e55-66b1cacc5b2e")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "9b682085-2b3a-44e9-8e55-66b1cacc5b2e")
 		)
 		(pin "IN_N_7" input
 			(at 77.47 81.28 180)
+			(uuid "cc75f1d0-9d22-41f1-8cc2-ff7a5ce602a3")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "cc75f1d0-9d22-41f1-8cc2-ff7a5ce602a3")
 		)
 		(pin "IN_N_8" input
 			(at 77.47 86.36 180)
+			(uuid "d4bde6df-0a3a-4272-97c1-df9e340f7dad")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "d4bde6df-0a3a-4272-97c1-df9e340f7dad")
 		)
 		(pin "IN_P_8" input
 			(at 77.47 83.82 180)
+			(uuid "a1d6457c-0e69-4719-8d00-57460d89b452")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "a1d6457c-0e69-4719-8d00-57460d89b452")
 		)
 		(pin "IN_P_LV_8" output
 			(at 106.68 83.82 0)
+			(uuid "114ad357-ce6c-4fb9-89de-762cbeb9c0b0")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "114ad357-ce6c-4fb9-89de-762cbeb9c0b0")
 		)
 		(pin "IN_N_LV_8" output
 			(at 106.68 86.36 0)
+			(uuid "92288a34-37db-4073-b84a-9c6cb8a3b60a")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "92288a34-37db-4073-b84a-9c6cb8a3b60a")
 		)
 		(pin "IN_N_LV_7" output
 			(at 106.68 81.28 0)
+			(uuid "57f80073-25be-4a4a-ac17-d5a9d32348e8")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "57f80073-25be-4a4a-ac17-d5a9d32348e8")
 		)
 		(pin "IN_N_3" input
 			(at 77.47 60.96 180)
+			(uuid "73f9db49-7419-4c32-9a10-255b36190d88")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "73f9db49-7419-4c32-9a10-255b36190d88")
 		)
 		(pin "IN_P_4" input
 			(at 77.47 63.5 180)
+			(uuid "c5ebf73e-a819-47e9-9329-8d606f2d674a")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "c5ebf73e-a819-47e9-9329-8d606f2d674a")
 		)
 		(pin "IN_N_4" input
 			(at 77.47 66.04 180)
+			(uuid "9ba37b1f-5ba4-476b-899b-0683c431e280")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "9ba37b1f-5ba4-476b-899b-0683c431e280")
 		)
 		(pin "IN_N_LV_4" output
 			(at 106.68 66.04 0)
+			(uuid "f21e7663-3043-4472-9563-dbfef10d5071")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "f21e7663-3043-4472-9563-dbfef10d5071")
 		)
 		(pin "IN_N_LV_3" output
 			(at 106.68 60.96 0)
+			(uuid "d3a74d36-5826-45ad-88a6-1521e650baad")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "d3a74d36-5826-45ad-88a6-1521e650baad")
 		)
 		(pin "IN_P_LV_4" output
 			(at 106.68 63.5 0)
+			(uuid "3e4e66d3-6af1-4cf2-abac-32fa166da9af")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "3e4e66d3-6af1-4cf2-abac-32fa166da9af")
 		)
 		(pin "IN_P_LV_5" output
 			(at 106.68 68.58 0)
+			(uuid "d6e7a233-5204-44aa-ab7b-a286fc17fac3")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "d6e7a233-5204-44aa-ab7b-a286fc17fac3")
 		)
 		(pin "IN_N_LV_5" output
 			(at 106.68 71.12 0)
+			(uuid "830906c7-f53c-4bc9-891a-8677b1c01372")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "830906c7-f53c-4bc9-891a-8677b1c01372")
 		)
 		(pin "IN_P_LV_6" output
 			(at 106.68 73.66 0)
+			(uuid "a84001a2-e8fe-4f4d-93fc-4d90b5a28001")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "a84001a2-e8fe-4f4d-93fc-4d90b5a28001")
 		)
 		(pin "IN_N_LV_6" output
 			(at 106.68 76.2 0)
+			(uuid "99fae901-3a24-4af3-87ac-08239edbe52b")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "99fae901-3a24-4af3-87ac-08239edbe52b")
 		)
 		(pin "IN_P_LV_7" output
 			(at 106.68 78.74 0)
+			(uuid "265a1e53-0938-49eb-8341-0cf1ee99dccd")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "265a1e53-0938-49eb-8341-0cf1ee99dccd")
 		)
 		(instances
 			(project "diffprobe-espnow"
@@ -8466,6 +8825,10 @@
 	(sheet
 		(at 77.47 115.57)
 		(size 29.21 45.72)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
 		(fields_autoplaced yes)
 		(stroke
 			(width 0.1524)
@@ -8495,323 +8858,323 @@
 		)
 		(pin "IN_N_5" input
 			(at 77.47 142.24 180)
+			(uuid "71ede078-e0e2-4413-81b7-1fdea6d50095")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "71ede078-e0e2-4413-81b7-1fdea6d50095")
 		)
 		(pin "IN_P_LV_1" output
 			(at 106.68 119.38 0)
+			(uuid "97db2c4f-5232-45b1-a1cc-6df4a5837950")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "97db2c4f-5232-45b1-a1cc-6df4a5837950")
 		)
 		(pin "IN_N_LV_1" output
 			(at 106.68 121.92 0)
+			(uuid "8508eaf4-bbe1-49bb-8245-9b4b56f05c2e")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "8508eaf4-bbe1-49bb-8245-9b4b56f05c2e")
 		)
 		(pin "IN_N_6" input
 			(at 77.47 147.32 180)
+			(uuid "1b4c2a44-b7f5-4aee-9cbf-41b51d789c3a")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "1b4c2a44-b7f5-4aee-9cbf-41b51d789c3a")
 		)
 		(pin "IN_P_5" input
 			(at 77.47 139.7 180)
+			(uuid "1dd330a6-3c3e-4580-b35e-e34d1860bed1")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "1dd330a6-3c3e-4580-b35e-e34d1860bed1")
 		)
 		(pin "IN_P_6" input
 			(at 77.47 144.78 180)
+			(uuid "faa7c2e0-ee81-40b8-9bbd-16c78726fb11")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "faa7c2e0-ee81-40b8-9bbd-16c78726fb11")
 		)
 		(pin "IN_P_LV_2" output
 			(at 106.68 124.46 0)
+			(uuid "818969b9-5344-4d4b-8f14-151798379839")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "818969b9-5344-4d4b-8f14-151798379839")
 		)
 		(pin "IN_N_LV_2" output
 			(at 106.68 127 0)
+			(uuid "ddaef321-86e8-490f-a0d2-6a135e1c666a")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "ddaef321-86e8-490f-a0d2-6a135e1c666a")
 		)
 		(pin "IN_P_LV_3" output
 			(at 106.68 129.54 0)
+			(uuid "144c7ae0-e9c4-4377-8f91-b362553394a7")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "144c7ae0-e9c4-4377-8f91-b362553394a7")
 		)
 		(pin "IN_P_2" input
 			(at 77.47 124.46 180)
+			(uuid "6456484c-94b2-4ea6-81bf-761f37a8926b")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "6456484c-94b2-4ea6-81bf-761f37a8926b")
 		)
 		(pin "IN_N_1" input
 			(at 77.47 121.92 180)
+			(uuid "555dfcbf-3e47-40d6-ac84-932b69584971")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "555dfcbf-3e47-40d6-ac84-932b69584971")
 		)
 		(pin "IN_N_2" input
 			(at 77.47 127 180)
+			(uuid "8d1166f1-32e5-441d-a263-b222219bb016")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "8d1166f1-32e5-441d-a263-b222219bb016")
 		)
 		(pin "IN_P_1" input
 			(at 77.47 119.38 180)
+			(uuid "b152b3b1-0dbd-4a12-ae17-7a264aa04e98")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "b152b3b1-0dbd-4a12-ae17-7a264aa04e98")
 		)
 		(pin "IN_P_3" input
 			(at 77.47 129.54 180)
+			(uuid "63fcbad2-3051-461e-8563-0ddb37858e29")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "63fcbad2-3051-461e-8563-0ddb37858e29")
 		)
 		(pin "IN_P_7" input
 			(at 77.47 149.86 180)
+			(uuid "c5680b10-8f3f-415c-9960-a48083d3865f")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "c5680b10-8f3f-415c-9960-a48083d3865f")
 		)
 		(pin "IN_N_7" input
 			(at 77.47 152.4 180)
+			(uuid "c495ac0b-9a74-4a7f-861c-ee43e7d20718")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "c495ac0b-9a74-4a7f-861c-ee43e7d20718")
 		)
 		(pin "IN_N_8" input
 			(at 77.47 157.48 180)
+			(uuid "d589ab59-df6c-4b70-9a85-af4cf6d8f34c")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "d589ab59-df6c-4b70-9a85-af4cf6d8f34c")
 		)
 		(pin "IN_P_8" input
 			(at 77.47 154.94 180)
+			(uuid "7c08b779-2f17-48f4-afb3-696e0a57022a")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "7c08b779-2f17-48f4-afb3-696e0a57022a")
 		)
 		(pin "IN_P_LV_8" output
 			(at 106.68 154.94 0)
+			(uuid "6c6b61ca-0bf2-4730-8ee3-2708c3e3f993")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "6c6b61ca-0bf2-4730-8ee3-2708c3e3f993")
 		)
 		(pin "IN_N_LV_8" output
 			(at 106.68 157.48 0)
+			(uuid "41c60727-2d34-476c-a29c-0d355fe7c393")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "41c60727-2d34-476c-a29c-0d355fe7c393")
 		)
 		(pin "IN_N_LV_7" output
 			(at 106.68 152.4 0)
+			(uuid "cd7a1a75-1b36-4d86-98e8-fdcef69457a3")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "cd7a1a75-1b36-4d86-98e8-fdcef69457a3")
 		)
 		(pin "IN_N_3" input
 			(at 77.47 132.08 180)
+			(uuid "e1cc7291-de11-45a1-a11c-0318638110aa")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "e1cc7291-de11-45a1-a11c-0318638110aa")
 		)
 		(pin "IN_P_4" input
 			(at 77.47 134.62 180)
+			(uuid "67627c60-10ce-4df2-a389-7e18fbb0a69c")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "67627c60-10ce-4df2-a389-7e18fbb0a69c")
 		)
 		(pin "IN_N_4" input
 			(at 77.47 137.16 180)
+			(uuid "5609206f-7043-4a65-a97e-2ae2b287f14f")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "5609206f-7043-4a65-a97e-2ae2b287f14f")
 		)
 		(pin "IN_N_LV_4" output
 			(at 106.68 137.16 0)
+			(uuid "776a4f84-0f70-44b7-9778-ce0f9b6f16eb")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "776a4f84-0f70-44b7-9778-ce0f9b6f16eb")
 		)
 		(pin "IN_N_LV_3" output
 			(at 106.68 132.08 0)
+			(uuid "0f491b74-b0f5-47ff-a425-f9725d849264")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "0f491b74-b0f5-47ff-a425-f9725d849264")
 		)
 		(pin "IN_P_LV_4" output
 			(at 106.68 134.62 0)
+			(uuid "ff25895b-deb4-421a-851b-7b8028e326f7")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "ff25895b-deb4-421a-851b-7b8028e326f7")
 		)
 		(pin "IN_P_LV_5" output
 			(at 106.68 139.7 0)
+			(uuid "1a7b3bd8-66d0-46be-b807-736c12c4f348")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "1a7b3bd8-66d0-46be-b807-736c12c4f348")
 		)
 		(pin "IN_N_LV_5" output
 			(at 106.68 142.24 0)
+			(uuid "2ac2e66b-a34c-44a6-a830-326b56eaa97c")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "2ac2e66b-a34c-44a6-a830-326b56eaa97c")
 		)
 		(pin "IN_P_LV_6" output
 			(at 106.68 144.78 0)
+			(uuid "9244a9c9-3f65-46f0-9156-6f8439af8d64")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "9244a9c9-3f65-46f0-9156-6f8439af8d64")
 		)
 		(pin "IN_N_LV_6" output
 			(at 106.68 147.32 0)
+			(uuid "555aebde-ae1a-4a96-b715-c8ac6994734d")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "555aebde-ae1a-4a96-b715-c8ac6994734d")
 		)
 		(pin "IN_P_LV_7" output
 			(at 106.68 149.86 0)
+			(uuid "3928623d-b0d8-4ee0-96ac-567c25a4d9fb")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "3928623d-b0d8-4ee0-96ac-567c25a4d9fb")
 		)
 		(instances
 			(project "diffprobe-espnow"
@@ -8826,4 +9189,5 @@
 			(page "1")
 		)
 	)
+	(embedded_fonts no)
 )
