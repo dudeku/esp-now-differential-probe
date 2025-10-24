@@ -1,0 +1,7 @@
+epoch time in UTC, -1 hour to local time
+
+CH12 wrong measurements, bad connection?
+
+20-30 mV noise on every channel
+
+larger noise on channels 2, 3 and 13 corresponding to SDo1 and SDo2
