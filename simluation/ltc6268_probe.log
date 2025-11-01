@@ -1,6 +1,6 @@
 LTspice 24.0.12 for Windows
 Circuit: * C:\Users\Klaud\Documents\Git Projects\esp-now-differential-probe\simluation\ltc6268_probe.asc
-Start Time: Sun Oct 19 20:34:37 2025
+Start Time: Sat Nov  1 22:00:08 2025
 solver = Normal
 Maximum thread count: 12
 tnom = 27
@@ -37,36 +37,25 @@ vernier = 0.000771604
 vernier = 0.00102881
 Gmin = 1.02903
 vernier = 0.000514403
+vernier = 0.00068587
+Gmin = 1.02766
+vernier = 0.000514403
 Gmin = 0
 Gmin stepping failed
 
 Starting source stepping with srcstepmethod=0
 Source Step = 3.0303%
 Source Step = 28.0303%
-vernier = 0.0625
-Source Step = 29.1667%
-Source Step = 31.0606%
-Source Step = 32.9545%
-Source Step = 34.8485%
-Source Step = 36.7424%
-vernier = 0.09375
-Source Step = 39.4886%
-Source Step = 42.3295%
-Source Step = 45.1705%
-Source Step = 48.0114%
-Source Step = 50.8523%
-vernier = 0.140625
-Source Step = 54.8295%
-Source Step = 59.0909%
-Source Step = 63.3523%
-Source Step = 67.6136%
-Source Step = 71.875%
-vernier = 0.210938
-Source Step = 77.6278%
-Source Step = 84.0199%
-Source Step = 90.4119%
-Source Step = 96.804%
+Source Step = 35.6061%
+Source Step = 43.1818%
+Source Step = 50.7576%
+Source Step = 58.3333%
+Source Step = 65.9091%
+vernier = 0.375
+Source Step = 77.2727%
+Source Step = 88.6364%
+Source Step = 100%
 Source stepping succeeded in finding the operating point.
 
-Total elapsed time: 1.317 seconds.
+Total elapsed time: 1.002 seconds.
 
