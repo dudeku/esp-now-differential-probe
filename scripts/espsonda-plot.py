@@ -4,7 +4,9 @@ import json
 #import numpy as np
 from scipy.signal import savgol_filter
 
-filename = 'espsonda_08-50-03_04-03-2025'
+# filename = 'espsonda_08-50-03_04-03-2025'
+filename = 'espsonda_08-07-44_05-06-2025'
+
 
 with open(f'measurements\\{filename}.json') as json_file:
     json_decoded = json.load(json_file)
@@ -13,6 +15,7 @@ with open(f'measurements\\{filename}.json') as json_file:
 #     json_decoded_2 = json.load(json_file_2)
 
 # Assuming json_decoded["board"] contains all channel data
+# channels = [f"CH{i}" for i in range(16)]  # List of channels CH0 to CH15
 channels = [f"CH{i}" for i in range(16)]  # List of channels CH0 to CH15
 
 # Extracting voltage values for each channel
@@ -35,32 +38,44 @@ df['epochtime'] = pd.to_datetime(df['epochtime'], unit='s')
 # Print the DataFrame
 print(df)
 
+channels_per_fig = 4
+num_figs = len(channels) // channels_per_fig
+
+for fig_index in range(num_figs):
+    # plt.figure(figsize=(12, 8))  # size per figure
+
+    # subset of 4 channels for this figure
+    subset = channels[fig_index * channels_per_fig : (fig_index + 1) * channels_per_fig]
+
+
 # Plotting all channels
-fig = plt.figure(figsize=(20, 20))  # Adjust the figure size for better visibility
+    fig = plt.figure(figsize=(10, 10))  # Adjust the figure size for better visibility
 
-for i, channel in enumerate(channels):
-    ax1 = plt.subplot(4, 4, i + 1)  # 4x4 grid for 16 subplots
-    ax1.plot(df["epochtime"], df[channel], label=f"{channel} vs Time")
-    ax1.set_ylabel("Voltage")
 
-    ax2 = ax1.twinx()
-    ax2.plot(df["epochtime"], df["current"], color='r', label=f"Current vs Time")
-    ax2.set_ylabel("Current")
+    for i, channel in enumerate(subset):
+        ax1 = plt.subplot(2, 2, i + 1)  # 4x4 grid for 16 subplots
+        ax1.plot(df["epochtime"], df[channel], label=f"{channel} vs Time")
+        ax1.set_ylabel("Voltage")
 
-    ax1.set_title(channel)
-    ax1.set_xlabel("Time")
-    ax1.tick_params(axis='x', rotation=90)
+        ax2 = ax1.twinx()
+        ax2.plot(df["epochtime"], df["current"], color='r', label=f"Current vs Time")
+        ax2.set_ylabel("Current")
 
-    lines, labels = ax1.get_legend_handles_labels()
-    lines2, labels2 = ax2.get_legend_handles_labels()
-    ax1.legend(lines + lines2, labels + labels2, loc='upper left')
+        ax1.set_title(channel)
+        ax1.set_xlabel("Time")
+        ax1.tick_params(axis='x', rotation=90)
 
-    #plt.legend()
-    
-    ax1.grid()
-    plt.tight_layout()
-plt.savefig(f'graphs\\{filename}_1.png')
-plt.show()
+        lines, labels = ax1.get_legend_handles_labels()
+        lines2, labels2 = ax2.get_legend_handles_labels()
+        # ax1.legend(lines + lines2, labels + labels2, loc='upper left')
+        ax1.legend(lines + lines2, labels + labels2, loc='lower right')
+
+        #plt.legend()
+        
+        ax1.grid()
+        plt.tight_layout()
+    plt.savefig(f'graphs/{filename}_fig{fig_index+1}.png')
+    plt.show()
 
 
 # Apply Savitzky-Golay filter to smooth the data
