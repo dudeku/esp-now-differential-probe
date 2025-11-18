@@ -30,7 +30,9 @@ df = pd.DataFrame({
 })
 
 # Convert epochtime to datetime
-df['epochtime'] = pd.to_datetime(df['epochtime'], unit='s')
+df['epochtime'] =( pd.to_datetime(df['epochtime'], unit='s')
+                  .dt.tz_localize("UTC")  
+                  .dt.tz_convert("Europe/Warsaw"))
 
 #df = df.truncate(after = 2400)
 #df = df.truncate(before = 1000)
