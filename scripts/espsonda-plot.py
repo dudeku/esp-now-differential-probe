@@ -5,7 +5,7 @@ import json
 from scipy.signal import savgol_filter
 
 # filename = 'espsonda_08-50-03_04-03-2025'
-filename = 'espsonda_08-07-44_05-06-2025'
+filename = 'espsonda_09-22-08_12-12-2025'
 
 
 with open(f'measurements\\{filename}.json') as json_file:
@@ -21,13 +21,31 @@ channels = [f"CH{i}" for i in range(16)]  # List of channels CH0 to CH15
 # Extracting voltage values for each channel
 channel_values = {channel: [entry[0]["voltages"].get(channel, None) for entry in json_decoded["board"]] for channel in channels}
 
+for key, value in {**json_decoded, **channel_values}.items():
+    print(key, len(value))
+
+
+all_arrays = {
+    "epochtime": json_decoded["epochtime"],
+    "current": json_decoded["current"],
+    **channel_values,   # CH0..CH15
+    "board": json_decoded["board"],
+}
+
+min_len = min(len(v) for v in all_arrays.values())
+
+for key in all_arrays:
+    all_arrays[key] = all_arrays[key][:min_len]
+
+df = pd.DataFrame(all_arrays)
+
 
 # Creating the DataFrame
-df = pd.DataFrame({
-    "epochtime": json_decoded["epochtime"],
-    **channel_values,
-    "current": json_decoded["current"]
-})
+# df = pd.DataFrame({
+#     "epochtime": json_decoded["epochtime"],
+#     **channel_values,
+#     "current": json_decoded["current"]
+# })
 
 # Convert epochtime to datetime
 df['epochtime'] =( pd.to_datetime(df['epochtime'], unit='s')
